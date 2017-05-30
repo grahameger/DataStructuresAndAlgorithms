@@ -9,7 +9,7 @@
 #include <limits>
 
 
-// Type must me a numeric type
+// Type must be a numeric type
 template <typename T>
 class StreamingMedian {
 public:
