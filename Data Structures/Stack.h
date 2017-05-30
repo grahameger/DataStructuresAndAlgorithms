@@ -30,16 +30,16 @@ public:
 		v.pop_back();
 	}
 	
-	T& top() {
+	T& top() const {
 		assert(v.size() != 0, "Tried to get top of a stack of size 0\n");
 		return v.back();
 	}
 
-	size_t size() {
+	size_t size() const {
 		return v.size();
 	}
 
-	bool empty() {
+	bool empty() const {
 		return !v.size();
 	}
 	
