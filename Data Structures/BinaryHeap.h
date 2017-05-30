@@ -90,8 +90,40 @@ private:
 	std::vector<TYPE> data;
 
 	size_t size;
-	void fixUp(size_t index);
-	void fixDown(size_t index);
+
+	// O(logn), tail recursive
+	void fixUp(size_t index) {
+		// base case
+		if (index == 0) {
+			return;
+		}
+
+		//initialize the parent index for reuse sake
+		size_t indexParent = (index - 1) / 2;
+
+		if (this->compare(data[indexParent], data[index])) {
+			std::swap(data[index], data[indexParent]);
+			fixUp(indexParent);
+		} 
+	}
+	// O(logn), iterative, why not try both methods
+	void fixDown(size_t index) {
+		size_t j = index * 2 + 1;
+
+		while (j < size()) {
+			size_t k = j;
+			if (k < size() - 1 && this->compare(data[j], data[j + 1])) {
+				k++;
+			}
+			if (this->compare(data[index], data[k])) {
+				std::swap(data[index], data[k]);
+				index = k;
+				j = index * 2 + 1;
+				continue;
+			}
+			break;
+		}
+	}
 
 protected:
 	COMP_FUNCTOR compare;
