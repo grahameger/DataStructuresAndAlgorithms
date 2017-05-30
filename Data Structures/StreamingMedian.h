@@ -7,9 +7,11 @@
 #include <iostream>
 #include <queue>
 #include <limits>
+#include <vector>
+#include <algorithm>
 
 
-// Type must be a numeric type
+// Type must eb a numeric type
 template <typename T>
 class StreamingMedian {
 public:
@@ -32,7 +34,7 @@ public:
 			lower.push(upper.top);
 			upper.pop();
 		} else if (lower.size() - upper.size() == 2) {
-			upper.push(lower.top()) 
+			upper.push(lower.top());
 			lower.pop();
 		}
 	}
@@ -47,8 +49,17 @@ public:
 		}
 	}
 private:
-	std::priority_queue<T, std::greater<T> > upper;
-	std::priority_queue<T, std::less<T> >    lower;
+	std::priority_queue<T, std::vector<T> std::greater<T> > upper;
+	std::priority_queue<T, std::vector<T>, std::less<T> >    lower;
 };
 
 #endif
+
+int main() {
+	StreamingMedian<int> sm;
+	for (int i = 0; i < 11; ++i)
+	{
+		sm.push(i);
+	}
+	std::cout << sm.median() << '\n';
+}

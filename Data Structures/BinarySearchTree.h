@@ -40,8 +40,8 @@ public:
 		} else {
 			return size(node->left) + size(node->right) + 1;
 		}
-	}
-
+	
+}
 	bool empty() const {
 		return !size;
 	}
