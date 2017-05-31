@@ -17,6 +17,18 @@
 template<typename T, typename COMPARE = std::less<T> >
 class BinarySearchTree
 {
+
+private:
+	struct Node {
+		Node(const T &datum_in, Node * left_in, Node * right_in) {
+			datum = datum_in;
+			left = left_in;
+			right = right_in;
+		}
+		T datum;
+		Node * left;
+		Node * right;
+	};
 public:
 	BinarySearchTree() {
 		root = nullptr;
@@ -40,15 +52,12 @@ public:
 		} else {
 			return size(node->left) + size(node->right) + 1;
 		}
-	
-}
-	bool empty() const {
-		return !size;
 	}
 
-
+	bool empty() const {
+		return !count;
+	}
 private:
-
 	// Deletes all nodes below node
 	void clear(Node * node) {
 		if (node != nullptr) {
@@ -58,22 +67,9 @@ private:
 		}
 	}
 
-	struct Node
-	{
-		Node(const T &datum_in, Node * left_in, Node * right_in) {
-			datum = datum_in;
-			left = left_in;
-			right = right_in;
-		}
-
-		T datum;
-		Node * left;
-		Node * right;
-	};
-
 	Node * root;
 	COMPARE less;
-	size_t size;
-
-
+	size_t count;
 };
+
+#endif
