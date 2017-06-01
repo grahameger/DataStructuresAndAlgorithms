@@ -99,7 +99,7 @@ private:
 		}
 
 		//initialize the parent index for reuse sake
-		size_t indexParent = (index - 1) / 2;
+		int indexParent = (index - 1) / 2;
 
 		if (this->compare(data[indexParent], data[index])) {
 			std::swap(data[index], data[indexParent]);
@@ -108,10 +108,10 @@ private:
 	}
 	// O(logn), iterative, why not try both methods
 	void fixDown(size_t index) {
-		size_t j = index * 2 + 1;
+		int j = index * 2 + 1;
 
 		while (j < size()) {
-			size_t k = j;
+			int k = j;
 			if (k < size() - 1 && this->compare(data[j], data[j + 1])) {
 				k++;
 			}
