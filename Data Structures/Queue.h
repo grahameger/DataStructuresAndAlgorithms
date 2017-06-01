@@ -1,6 +1,9 @@
 #ifndef QUEUE_H_CFB5FC276C1C498CB42E7DA970373A0D
 #define QUEUE_H_CFB5FC276C1C498CB42E7DA970373A0D
 
+#include <iostream>
+#include <cassert>
+
 // A templated FIFO queue implemented using a singly-linked list
 
 template <typename T>
@@ -20,7 +23,7 @@ public:
 	}
 
 	T& peek() const {
-		return *first;
+		return first->datum;
 	}
 
 	size_t size() const {
@@ -34,15 +37,16 @@ public:
 			first = temp;
 			last = temp;
 		} else {
-			back.next = temp;
+			last->next = temp;
+			last = temp;
 		}
 		count++;
 	}
 
 	void pop() {
-		assert(!empty())
+		assert(!empty());
 		Node * to_kill = first;
-		first = first.next;
+		first = first->next;
 		delete to_kill; to_kill = nullptr;
 		count--;
 	}
@@ -52,7 +56,7 @@ private:
 		Node(const T &val) : datum(val), next(nullptr) { }
 		Node * next;
 		T datum;
-	}
+	};
 
 	Node * first;
 	Node * last;
