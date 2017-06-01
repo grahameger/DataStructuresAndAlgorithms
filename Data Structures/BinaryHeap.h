@@ -11,13 +11,13 @@
 #include <algorithm>
 #include <vector>
 
-template <typename T, typename COMP_FUNCTOR = std::less<TYPE>>
+template <typename T, typename COMP_FUNCTOR = std::less<T> >
 class BinaryPQ
 {
 public:
 	// Construct an empty pq
 	BinaryPQ(COMP_FUNCTOR comp = COMP_FUNCTOR()) {
-		size = 0;
+		count = 0;
 		this->compare = comp;
 	}
 	
@@ -26,17 +26,17 @@ public:
 	BinaryPQ(InputIterator begin, InputIterator end, COMP_FUNCTOR comp = COMP_FUNCTOR()) {
 
 		// set up the vector for adding
-		data.reserve(std::distance(start, end));
-		size = 0;
+		data.reserve(std::distance(begin, end));
+		count = 0;
 
 		// initialize the comp functor
 		this->compare = comp;
 
 		// push all the data in
-		for (; start < end; ++start)
+		for (; begin < end; ++begin)
 		{
-			data.push_back(*start);
-			++size;
+			data.push_back(*begin);
+			++count;
 		}
 
 		// update all the priorities
@@ -52,7 +52,7 @@ public:
 		// fix up the node
 		fixUp(data.size() - 1);
 
-		++size;
+		++count;
 	}
 	
 	// O(log n)
@@ -60,9 +60,7 @@ public:
 		// swap the front and back to remove the root 
 		std::swap(data[0], data.back());
 		data.pop_back();
-
-		--size;
-
+		--count;
 		// fix the new top which was the bottom
 		fixDown(0);
 	}
@@ -72,11 +70,11 @@ public:
 	}
 	
 	size_t size() const {
-		return size;
+		return count;
 	}
 	
 	bool empty() const {
-		return !size;
+		return !count;
 	}
 	
 	void updatePriorities() {
@@ -87,9 +85,9 @@ public:
 
 private:
 
-	std::vector<TYPE> data;
+	std::vector<T> data;
 
-	size_t size;
+	size_t count;
 
 	// O(logn), tail recursive
 	void fixUp(size_t index) {
@@ -97,19 +95,27 @@ private:
 		if (index == 0) {
 			return;
 		}
-
 		//initialize the parent index for reuse sake
+<<<<<<< HEAD
 		int indexParent = (index - 1) / 2;
 
+=======
+		size_t indexParent = (index - 1) / 2;
+>>>>>>> 44a1b036904123a14d08b2adcaa4cd43f9922c6f
 		if (this->compare(data[indexParent], data[index])) {
 			std::swap(data[index], data[indexParent]);
 			fixUp(indexParent);
 		} 
 	}
+
 	// O(logn), iterative, why not try both methods
 	void fixDown(size_t index) {
+<<<<<<< HEAD
 		int j = index * 2 + 1;
 
+=======
+		size_t j = index * 2 + 1;
+>>>>>>> 44a1b036904123a14d08b2adcaa4cd43f9922c6f
 		while (j < size()) {
 			int k = j;
 			if (k < size() - 1 && this->compare(data[j], data[j + 1])) {
@@ -129,3 +135,5 @@ protected:
 	COMP_FUNCTOR compare;
 	
 };
+
+#endif
