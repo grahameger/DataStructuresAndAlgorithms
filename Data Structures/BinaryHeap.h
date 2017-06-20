@@ -96,6 +96,7 @@ private:
 			return;
 		}
 		//initialize the parent index for reuse sake
+		int indexParent = (index - 1) / 2;
 		size_t indexParent = (index - 1) / 2;
 		if (this->compare(data[indexParent], data[index])) {
 			std::swap(data[index], data[indexParent]);
@@ -107,7 +108,7 @@ private:
 	void fixDown(size_t index) {
 		size_t j = index * 2 + 1;
 		while (j < size()) {
-			size_t k = j;
+			int k = j;
 			if (k < size() - 1 && this->compare(data[j], data[j + 1])) {
 				k++;
 			}
